@@ -18,9 +18,9 @@ public class Main {
 //		lagØvelseCtrl.fullførØvelse();
 //		System.out.println("Fullført opprettelse av Øvelse");
 		
-		QuerriesCtrl eiLitaQ = new QuerriesCtrl();
+		QueriesCtrl eiLitaQ = new QueriesCtrl();
 		eiLitaQ.getTreningsøkter(2);
-		System.out.println(eiLitaQ.printær());
+		System.out.println(eiLitaQ.getTreningsøkterResultat());
 		
 		
 		
