@@ -1,6 +1,7 @@
 package practice;
 
 import java.sql.*;
+import java.util.Date;
 
 public class Treningsøkt extends ActiveDomainObject {
 
@@ -21,7 +22,7 @@ public class Treningsøkt extends ActiveDomainObject {
     public void setTreningsøkt(int trening_id) {
         this.trening_id = trening_id;
     }
-    
+   
     
     public int getTrenings_id (Connection conn) {
         try {
