@@ -1,32 +1,39 @@
 package practice;
 
 import java.sql.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class QueriesCtrl extends DBConn {
 	
 	private ArrayList<TreningsøktInstance> treningsøkterResultat;
 	private ArrayList<Resultatlogg> resultatlogg;
+	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Default Date for MySQL
 	
 
 	public QueriesCtrl() {
 		connect();
 	}
 	
-	public ArrayList<Resultatlogg> getResultatlogg(String øvelse, Date start, Date end) {
+	public ArrayList<Resultatlogg> getResultatlogg(String øvelse, String interval_start, String interval_end) {
 		resultatlogg = new ArrayList<Resultatlogg>();
+		Date start = Date.valueOf(LocalDate.parse(interval_start, formatter));
+		Date end = Date.valueOf(LocalDate.parse(interval_end, formatter));
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(
-						"select personlig_form, prestasjon, antall_kilo, antall_sett " +
+						"select dato, personlig_form, prestasjon, antall_kilo, antall_sett " +
 						"from Øvelse " +
-						"inner join Øvelse_i_økt on (Øvelse.øvelse_id = Øvelse_i_økt.øvelse_id " +
-						"inner join Treningsøkt on (Øvelse_i_økt.trening_id = Treningsøkt.trenings_id" +
-						"where Øvelse.navn='" + øvelse + "' and Treningsøkt.dato>" +
-						start + " and Treningsøkt.dato<" + end + ";"
+						"inner join Øvelse_i_økt on Øvelse.øvelse_id = Øvelse_i_økt.øvelse_id " +
+						"inner join Treningsøkt on Øvelse_i_økt.trening_id = Treningsøkt.trening_id " +
+						"where Øvelse.navn = '" + øvelse + "' and Treningsøkt.dato >= '" + start + 
+						"' and Treningsøkt.dato <= '" + end + "';"
 					);
 			while (rs.next()) {
 				Resultatlogg rslogg = new Resultatlogg();
+				// A bit messy and I should definitely look for an alternative method.
+				rslogg.setDato(rs.getDate("dato").toLocalDate());
 				rslogg.setPersonlog_form(rs.getInt("personlig_form"));
 				rslogg.setPrestasjon(rs.getInt("prestasjon"));
 				rslogg.setAntall_kilo(rs.getInt("antall_kilo"));
@@ -38,11 +45,6 @@ public class QueriesCtrl extends DBConn {
 		}
 		return resultatlogg;
 	}
-	
-	
-	
-	
-	
 	
 	
 	

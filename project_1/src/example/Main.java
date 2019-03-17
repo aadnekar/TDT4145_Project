@@ -2,13 +2,21 @@ package example;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 public class Main {
 
 	public static void main(String[] args) throws Exception {
 		createTable();
-//		post();
+		post();
 		get();
+		
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate myObj;
+//		myObj = LocalDate.now();
+//		myObj = LocalDate.parse("2019-03-16", formatter);
+//		System.out.println("Date: " + myObj);
 	}
 	
 	
@@ -16,17 +24,17 @@ public class Main {
 		try {
 			Connection conn = getConnection();
 			PreparedStatement statement = conn.prepareStatement(
-						"select first, last from dirtyDancer"
+						"select name, date from date_table"
 					);
 			ResultSet rs  = statement.executeQuery();
 			
 			ArrayList<String> array = new ArrayList<String>();
 			while(rs.next()) {
-				System.out.print(rs.getString("first"));
+				System.out.print(rs.getString("name"));
 				System.out.print(" ");
-				System.out.println("last");
+				System.out.println("date");
 				
-				array.add(rs.getString("last"));
+				array.add(rs.getString("date"));
 			}
 			System.out.println("All records have been selected!");
 			return array;
@@ -38,12 +46,16 @@ public class Main {
 	}
 	
 	public static void post() throws Exception {
-		final String var1 = "John";
-		final String var2 = "Miller";
+		final String var1 = "Game med Ole Martin";
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		LocalDate temp = LocalDate.parse("2019-03-17", formatter);
+		System.out.println("Date convert: " + temp);
+		Date var2 = Date.valueOf(temp);
+		System.out.println("Date to be inserted: " + var2);
 		try {
 			Connection conn = getConnection();
 			PreparedStatement posted = conn.prepareStatement(
-						"Insert into dirtyDancer (first, last) values ('"
+						"Insert into date_table (name, date) values ('"
 					+	var1 + "', '"
 					+	var2 + "')"
 					);
@@ -59,10 +71,10 @@ public class Main {
 	public static void createTable() throws Exception {
 		try {
 			Connection conn = getConnection();
-			PreparedStatement create = conn.prepareStatement("CREATE TABLE IF NOT EXISTS dirtyDancer(" + 
+			PreparedStatement create = conn.prepareStatement("CREATE TABLE IF NOT EXISTS date_table(" + 
 															"id int NOT NULL AUTO_INCREMENT, " + 
-															"first varchar(255), " +
-															"last varchar(255), " +
+															"name varchar(255), " +
+															"date Date, " +
 															"PRIMARY KEY(id));");
 			create.executeUpdate();
 		} catch(Exception e) {

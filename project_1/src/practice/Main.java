@@ -4,7 +4,7 @@ public class Main {
 	
 	public static void main(String[] args) {
 //		LagTreningsøktCtrl lagTreningsøktCtrl = new LagTreningsøktCtrl();
-//		lagTreningsøktCtrl.lagTreningsøkt(10, 10);
+//		lagTreningsøktCtrl.lagTreningsøkt("2019-01-02", 20 , 5, 3);
 //		lagTreningsøktCtrl.fullførTreningsøkt();
 //		System.out.println("Fullført opprettelse av treningsøkt");
 		
@@ -19,9 +19,17 @@ public class Main {
 //		System.out.println("Fullført opprettelse av Øvelse");
 		
 		QueriesCtrl eiLitaQ = new QueriesCtrl();
-		eiLitaQ.getTreningsøkter(2);
-		System.out.println(eiLitaQ.getTreningsøkterResultat());
 		
+//		eiLitaQ.getTreningsøkter(2);
+//		System.out.println(eiLitaQ.getTreningsøkterResultat());
+		
+		eiLitaQ.getResultatlogg("Knebøy med stang", "2019-01-01", "2019-01-01");
+		System.out.println(eiLitaQ.getResultatlogg());
+		
+		
+//		LagØvelseIØktCtrl lagØvelseIØktCtrl = new LagØvelseIØktCtrl();
+//		lagØvelseIØktCtrl.lagØvelseiØkt(4, 1);
+//		lagØvelseIØktCtrl.fullførØvelseiØkt();
 		
 		
 	}

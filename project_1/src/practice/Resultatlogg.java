@@ -1,18 +1,32 @@
 package practice;
 
+import java.sql.Date;
+import java.time.LocalDate;
+
 public class Resultatlogg {
 	
+	private LocalDate dato;
 	private int personlog_form, prestasjon, antall_kilo, antall_sett;
+	
 	
 	public Resultatlogg() {
 		
 	}
 	
-	public Resultatlogg(int pf, int pres, int ak, int as) {
+	public Resultatlogg(LocalDate dato, int pf, int pres, int ak, int as) {
+		this.dato = dato;
 		this.personlog_form = pf;
 		this.prestasjon = pres;
 		this.antall_kilo = ak;
 		this.antall_sett = as;
+	}
+	
+	public LocalDate getDato() {
+		return dato;
+	}
+	
+	public void setDato(LocalDate dato) {
+		this.dato = dato;
 	}
 
 	public int getPersonlog_form() {
@@ -49,7 +63,8 @@ public class Resultatlogg {
 	
 	public String toString() {
 		String text = "";
-		text += "Personlig form: " + this.getPersonlog_form() + " | " +
+		text += "Dato: " + this.getDato() + " | " + 
+				"Personlig form: " + this.getPersonlog_form() + " | " +
 				"Prestasjon: " + this.getPrestasjon() + " | " +
 				"Antall Kilo: " + this.getAntall_kilo() + " | " +
 				"Antall Sett: " + this.getAntall_sett() + "\n";

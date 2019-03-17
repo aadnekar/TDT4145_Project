@@ -18,6 +18,14 @@ public class LagTreningsøktCtrl extends DBConn {
 		}
 	}
 	
+	public void lagTreningsøkt(String dato, int varighet, int pf, int pres) {
+		treningsøkt = new Treningsøkt(dato, varighet, pf, pres);
+	}
+	
+	public void lagTreningsøkt(String dato, int pf, int pres) {
+		treningsøkt = new Treningsøkt(dato, pf, pres);
+	}
+	
 	public void lagTreningsøkt(int pf, int pres) {
 		treningsøkt = new Treningsøkt(pf, pres);
 	}
