@@ -5,10 +5,15 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+import helpers.EnkeltØvelse;
+import helpers.Resultatlogg;
+import helpers.TreningsøktInstance;
+
 public class QueriesCtrl extends DBConn {
 	
 	private ArrayList<TreningsøktInstance> treningsøkterResultat;
 	private ArrayList<Resultatlogg> resultatlogg;
+	private ArrayList<EnkeltØvelse> øvelserIGruppe;
 	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Default Date for MySQL
 	
 
@@ -16,6 +21,35 @@ public class QueriesCtrl extends DBConn {
 		connect();
 	}
 	
+	public ArrayList<EnkeltØvelse> getØvelserFraGruppe(String øvelsesgruppe) {
+		øvelserIGruppe = new ArrayList<EnkeltØvelse>();
+		try {
+			Statement stmt = conn.createStatement();
+			ResultSet rs = stmt.executeQuery(
+					"select Øvelse.navn " +
+					"from Øvelse " +
+						"inner join Øvelse_i_gruppe on Øvelse.øvelse_id = Øvelse_i_gruppe.øvelse_id " +
+						"inner join Øvelsesgruppe on Øvelse_i_gruppe.øvelsesgruppe_id = Øvelsesgruppe.øvelsesgruppe_id " +
+					"where Øvelsesgruppe.navn = '" + øvelsesgruppe + "';"				
+					);
+			while (rs.next()) {
+				EnkeltØvelse enkeltØvelse = new EnkeltØvelse();
+				enkeltØvelse.setNavn(rs.getString("navn"));
+				øvelserIGruppe.add(enkeltØvelse);
+			}
+		} catch(Exception e) {
+			System.out.println("db error during getØvelserFraGruppe Query: " + e);
+		}
+		return øvelserIGruppe;
+	}
+	
+	/**
+	 * 
+	 * @param øvelse
+	 * @param interval_start
+	 * @param interval_end
+	 * @return list of results from sessions in a time interval with a specified exercise.
+	 */
 	public ArrayList<Resultatlogg> getResultatlogg(String øvelse, String interval_start, String interval_end) {
 		resultatlogg = new ArrayList<Resultatlogg>();
 		Date start = Date.valueOf(LocalDate.parse(interval_start, formatter));
@@ -47,7 +81,11 @@ public class QueriesCtrl extends DBConn {
 	}
 	
 	
-	
+	/**
+	 * getTreningsøkter 
+	 * @param antallØkter
+	 * @return number of antallØkter
+	 */
 	public ArrayList<TreningsøktInstance> getTreningsøkter(int antallØkter){
 		treningsøkterResultat = new ArrayList<TreningsøktInstance>();
 		try {
@@ -68,17 +106,16 @@ public class QueriesCtrl extends DBConn {
 				ins.setTekst(rs.getString("tekst"));
 				treningsøkterResultat.add(ins);
 			}
-			return treningsøkterResultat;
 		} catch(Exception e) {
 			System.out.println("db error during QuerriesCtrl select: " + e);
-			return treningsøkterResultat;
 		}
+		return treningsøkterResultat;
 	}
 	
 	public String getTreningsøkterResultat() {
 		String alt = "";
 		for (int i=0; i<treningsøkterResultat.size(); i++) {
-			alt += treningsøkterResultat.get(i).printær();
+			alt += treningsøkterResultat.get(i).toString();
 		}
 		return alt;
 	}
@@ -87,6 +124,14 @@ public class QueriesCtrl extends DBConn {
 		String text = "";
 		for (int i=0; i<resultatlogg.size(); i++) {
 			text += resultatlogg.get(i).toString();
+		}
+		return text;
+	}
+	
+	public String getØvelserFraGruppe() {
+		String text = "";
+		for (int i=0; i<øvelserIGruppe.size(); i++) {
+			text += øvelserIGruppe.get(i).toString();
 		}
 		return text;
 	}

@@ -1,6 +1,9 @@
-package application;
+package entityConstructors;
 
 import java.sql.*;
+
+import application.DBConn;
+import entities.ÿvelseIÿkt;
 
 public class LagÿvelseIÿktCtrl extends DBConn {
 	

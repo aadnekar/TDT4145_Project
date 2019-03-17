@@ -1,6 +1,10 @@
-package application;
+package entityConstructors;
 
 import java.sql.*;
+
+import application.DBConn;
+import entities.Notat;
+import entities.Treningsøkt;
 
 public class LagTreningsøktCtrl extends DBConn {
 	
@@ -30,10 +34,9 @@ public class LagTreningsøktCtrl extends DBConn {
 		treningsøkt = new Treningsøkt(pf, pres);
 	}
 	
-//	public void lagTreningsøkt(int pf, int pres, String tekst) {
-//		treningsøkt = new Treningsøkt(pf, pres);
-//		notat = new Notat(tekst, trening_id)
-//	}
+	public void lagNotat(String tekst) {
+		// Make a note to the session, must have a method to extract the trening_id.
+	}
 	
 	public void fullførTreningsøkt() {
 		treningsøkt.save(conn);

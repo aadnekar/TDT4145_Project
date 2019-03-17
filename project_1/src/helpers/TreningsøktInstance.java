@@ -1,4 +1,4 @@
-package application;
+package helpers;
 
 import java.sql.*;
 
@@ -70,7 +70,7 @@ public class TreningsøktInstance {
 		this.tekst = tekst;
 	}
 	
-	public String printær() {
+	public String toString() {
 		String alt = "";
 		alt += "Dato: " + this.getDato() +
 				", Tid: " + this.getTidspunkt() +
