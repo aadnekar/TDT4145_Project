@@ -2,8 +2,8 @@ package entityConstructors;
 
 import java.sql.*;
 
-import application.DBConn;
 import entities.Apparat;
+import treningsdagbokApp.DBConn;
 
 public class LagApparatCtrl extends DBConn {
 

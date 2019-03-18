@@ -2,9 +2,9 @@ package entityConstructors;
 
 import java.sql.*;
 
-import application.DBConn;
 import entities.Notat;
 import entities.Treningsøkt;
+import treningsdagbokApp.DBConn;
 
 public class LagTreningsøktCtrl extends DBConn {
 	

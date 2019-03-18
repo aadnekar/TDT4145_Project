@@ -1,7 +1,7 @@
 package entityConstructors;
 
-import application.DBConn;
 import entities.Øvelsesgruppe;
+import treningsdagbokApp.DBConn;
 
 import java.sql.*;
 

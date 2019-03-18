@@ -1,4 +1,4 @@
-package application;
+package treningsdagbokApp;
 
 import java.sql.*;
 import java.util.Properties;

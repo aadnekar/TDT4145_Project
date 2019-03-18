@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="javafx.scene.layout.BorderPane"/>
+<fullyQualifiedTypeName name="javafx.fxml.FXMLLoader"/>
+<fullyQualifiedTypeName name="javafx.scene.Scene"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="javafx.scene.layout.AnchorPane"/>
+<fullyQualifiedTypeName name="application.QueriesCtrl"/>
+<fullyQualifiedTypeName name="java.lang.Integer"/>
+<fullyQualifiedTypeName name="javafx.beans.property.ObjectProperty"/>
+<fullyQualifiedTypeName name="javafx.beans.property.IntegerProperty"/>
+<fullyQualifiedTypeName name="javafx.beans.property.StringProperty"/>
+<fullyQualifiedTypeName name="view.TreningerOverviewController"/>
+<fullyQualifiedTypeName name="helpers.TreningsøktInstance"/>
+<fullyQualifiedTypeName name="java.sql.Statement"/>
+<fullyQualifiedTypeName name="application.DBConn"/>
+<fullyQualifiedTypeName name="javafx.scene.control.Alert"/>
+<fullyQualifiedTypeName name="javafx.scene.control.TableView"/>
+<fullyQualifiedTypeName name="javafx.fxml.FXML"/>
+<fullyQualifiedTypeName name="javafx.scene.control.TableColumn"/>
+<fullyQualifiedTypeName name="java.time.LocalDate"/>
+<fullyQualifiedTypeName name="java.awt.TextField"/>
+<fullyQualifiedTypeName name="javafx.scene.control.TextArea"/>
+<fullyQualifiedTypeName name="javafx.event.ActionEvent"/>
+<fullyQualifiedTypeName name="javafx.collections.ObservableList"/>
+<fullyQualifiedTypeName name="model.TreningsøktModel"/>
+<fullyQualifiedTypeName name="javafx.collections.FXCollections"/>
+<fullyQualifiedTypeName name="java.lang.ClassNotFoundException"/>
+<fullyQualifiedTypeName name="model.TreningsøktDAO"/>
+<fullyQualifiedTypeName name="javafx.scene.control.TextField"/>
+<fullyQualifiedTypeName name="com.sun.javafx.scene.control.skin.IntegerFieldSkin"/>
+<fullyQualifiedTypeName name="java.lang.NumberFormatException"/>
+<fullyQualifiedTypeName name="java.util.Formatter"/>
+<fullyQualifiedTypeName name="javafx.scene.control.Slider"/>
+<fullyQualifiedTypeName name="controller.TreningsbokController"/>
+<fullyQualifiedTypeName name="application.MainApp"/>
+</qualifiedTypeNameHistroy>

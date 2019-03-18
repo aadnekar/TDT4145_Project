@@ -1,4 +1,4 @@
-package application;
+package treningsdagbokApp;
 
 import entityConstructors.LagÿvelseCtrl;
 import entityConstructors.LagÿvelseIGruppeCtrl;

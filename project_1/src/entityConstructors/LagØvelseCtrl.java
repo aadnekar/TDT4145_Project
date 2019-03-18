@@ -2,8 +2,8 @@ package entityConstructors;
 
 import java.sql.*;
 
-import application.DBConn;
 import entities.ÿvelse;
+import treningsdagbokApp.DBConn;
 
 public class LagÿvelseCtrl extends DBConn {
 
