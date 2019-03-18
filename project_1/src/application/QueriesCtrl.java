@@ -7,20 +7,21 @@ import java.util.ArrayList;
 
 import helpers.EnkeltØvelse;
 import helpers.Resultatlogg;
-import helpers.TreningsøktInstance;
+import javafx.fxml.FXML;
+import model.TreningsøktModel;
 
 public class QueriesCtrl extends DBConn {
-	
-	private ArrayList<TreningsøktInstance> treningsøkterResultat;
+
+	private ArrayList<TreningsøktModel> treningsøkterResultat;
 	private ArrayList<Resultatlogg> resultatlogg;
 	private ArrayList<EnkeltØvelse> øvelserIGruppe;
 	public static DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); // Default Date for MySQL
-	
+
 
 	public QueriesCtrl() {
 		connect();
 	}
-	
+
 	public ArrayList<EnkeltØvelse> getØvelserFraGruppe(String øvelsesgruppe) {
 		øvelserIGruppe = new ArrayList<EnkeltØvelse>();
 		try {
@@ -30,7 +31,7 @@ public class QueriesCtrl extends DBConn {
 					"from Øvelse " +
 						"inner join Øvelse_i_gruppe on Øvelse.øvelse_id = Øvelse_i_gruppe.øvelse_id " +
 						"inner join Øvelsesgruppe on Øvelse_i_gruppe.øvelsesgruppe_id = Øvelsesgruppe.øvelsesgruppe_id " +
-					"where Øvelsesgruppe.navn = '" + øvelsesgruppe + "';"				
+					"where Øvelsesgruppe.navn = '" + øvelsesgruppe + "';"
 					);
 			while (rs.next()) {
 				EnkeltØvelse enkeltØvelse = new EnkeltØvelse();
@@ -42,9 +43,9 @@ public class QueriesCtrl extends DBConn {
 		}
 		return øvelserIGruppe;
 	}
-	
+
 	/**
-	 * 
+	 *
 	 * @param øvelse
 	 * @param interval_start
 	 * @param interval_end
@@ -61,7 +62,7 @@ public class QueriesCtrl extends DBConn {
 						"from Øvelse " +
 						"inner join Øvelse_i_økt on Øvelse.øvelse_id = Øvelse_i_økt.øvelse_id " +
 						"inner join Treningsøkt on Øvelse_i_økt.trening_id = Treningsøkt.trening_id " +
-						"where Øvelse.navn = '" + øvelse + "' and Treningsøkt.dato >= '" + start + 
+						"where Øvelse.navn = '" + øvelse + "' and Treningsøkt.dato >= '" + start +
 						"' and Treningsøkt.dato <= '" + end + "';"
 					);
 			while (rs.next()) {
@@ -79,28 +80,27 @@ public class QueriesCtrl extends DBConn {
 		}
 		return resultatlogg;
 	}
-	
-	
+
+
 	/**
-	 * getTreningsøkter 
+	 * getTreningsøkter
 	 * @param antallØkter
 	 * @return number of antallØkter
 	 */
-	public ArrayList<TreningsøktInstance> getTreningsøkter(int antallØkter){
-		treningsøkterResultat = new ArrayList<TreningsøktInstance>();
+	public ArrayList<TreningsøktModel> getTreningsøkter(int antallØkter){
+		treningsøkterResultat = new ArrayList<TreningsøktModel>();
 		try {
 			Statement stmt = conn.createStatement();
 			ResultSet rs = stmt.executeQuery(
-						"select dato, tidspunkt, varighet, personlig_form, prestasjon, tekst " +
+						"select dato, varighet, personlig_form, prestasjon, tekst " +
 						"from Treningsøkt left outer join Notat " +
 						"on Notat.trening_id = Treningsøkt.trening_id " +
-						"order by dato asc, tidspunkt asc;"
+						"order by dato asc;"
 					);
 			while(rs.next()) {
-				TreningsøktInstance ins = new TreningsøktInstance();
-				ins.setDato(rs.getDate("dato"));
-				ins.setTidspunkt(rs.getTime("varighet"));
-				ins.setVarighet(rs.getTime("varighet"));
+				TreningsøktModel ins = new TreningsøktModel();
+				ins.setDato(rs.getDate("dato").toLocalDate());
+				ins.setVarighet(rs.getInt("varighet"));
 				ins.setPersonlig_form(rs.getInt("personlig_form"));
 				ins.setPrestasjon(rs.getInt("prestasjon"));
 				ins.setTekst(rs.getString("tekst"));
@@ -108,10 +108,11 @@ public class QueriesCtrl extends DBConn {
 			}
 		} catch(Exception e) {
 			System.out.println("db error during QuerriesCtrl select: " + e);
+			e.printStackTrace();
 		}
 		return treningsøkterResultat;
 	}
-	
+
 	public String getTreningsøkterResultat() {
 		String alt = "";
 		for (int i=0; i<treningsøkterResultat.size(); i++) {
@@ -119,7 +120,7 @@ public class QueriesCtrl extends DBConn {
 		}
 		return alt;
 	}
-	
+
 	public String getResultatlogg() {
 		String text = "";
 		for (int i=0; i<resultatlogg.size(); i++) {
@@ -127,7 +128,7 @@ public class QueriesCtrl extends DBConn {
 		}
 		return text;
 	}
-	
+
 	public String getØvelserFraGruppe() {
 		String text = "";
 		for (int i=0; i<øvelserIGruppe.size(); i++) {
@@ -135,5 +136,5 @@ public class QueriesCtrl extends DBConn {
 		}
 		return text;
 	}
-	
+
 }
